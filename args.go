@@ -71,6 +71,10 @@ func (a *Args) CopyTo(dst *Args) {
 //
 // f must not retain references to key and value after returning.
 // Make key and/or value copies if you need storing them after returning.
+func (a *Args) VisitAllQueryParams(f func(key, value []byte, ctx *RequestCtx), ctx *RequestCtx) {
+	visitAllArgs(a.args, f, ctx)
+}
+
 func (a *Args) VisitAll(f func(key, value []byte)) {
 	visitArgs(a.args, f)
 }
@@ -348,6 +352,13 @@ func (a *Args) GetBool(key string) bool {
 		return true
 	default:
 		return false
+	}
+}
+
+func visitAllArgs(args []argsKV, f func(k, v []byte, ctx *RequestCtx), ctx *RequestCtx) {
+	for i, n := 0, len(args); i < n; i++ {
+		kv := &args[i]
+		f(kv.key, kv.value, ctx)
 	}
 }
 
