@@ -2313,6 +2313,10 @@ func (s *Server) acquireCtx(c net.Conn) (ctx *RequestCtx) {
 	return
 }
 
+func (ctx *RequestCtx) RemotePort() string {
+	return strings.Split(ctx.Conn().RemoteAddr().String(), ":")[1]
+}
+
 // Init2 prepares ctx for passing to RequestHandler.
 //
 // conn is used only for determining local and remote addresses.
