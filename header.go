@@ -78,6 +78,22 @@ type RequestHeader struct {
 	rawHeadersCopy []byte
 }
 
+func (h * RequestHeader) GetHeadersArray() map[string]string {
+	arr := make(map[string]string)
+	for _, value := range h.h {
+		arr[string(value.key)] = string(value.value)
+	}
+	return arr
+}
+
+func (h * RequestHeader) GetHeadersArrayForFraud() map[string]int {
+	arr := make(map[string]int)
+	for index, value := range h.h {
+		arr[string(value.key)] = index
+	}
+	return arr
+}
+
 // SetContentRange sets 'Content-Range: bytes startPos-endPos/contentLength'
 // header.
 func (h *ResponseHeader) SetContentRange(startPos, endPos, contentLength int) {
