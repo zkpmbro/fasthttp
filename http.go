@@ -45,7 +45,7 @@ type Request struct {
 
 	keepBodyBuffer bool
 
-	isTLS bool
+	IsTLS bool
 
 	// To detect scheme changes in redirects
 	schemaUpdate bool
@@ -652,7 +652,7 @@ func (req *Request) copyToSkipBody(dst *Request) {
 
 	req.postArgs.CopyTo(&dst.postArgs)
 	dst.parsedPostArgs = req.parsedPostArgs
-	dst.isTLS = req.isTLS
+	dst.IsTLS = req.IsTLS
 
 	// do not copy multipartForm - it will be automatically
 	// re-created on the first call to MultipartForm.
@@ -704,7 +704,7 @@ func (req *Request) parseURI() {
 	}
 	req.parsedURI = true
 
-	req.uri.parse(req.Header.Host(), req.Header.RequestURI(), req.isTLS)
+	req.uri.parse(req.Header.Host(), req.Header.RequestURI(), req.IsTLS)
 }
 
 // PostArgs returns POST arguments.
@@ -853,7 +853,7 @@ func (req *Request) resetSkipHeader() {
 	req.parsedURI = false
 	req.postArgs.Reset()
 	req.parsedPostArgs = false
-	req.isTLS = false
+	req.IsTLS = false
 }
 
 // RemoveMultipartFormFiles removes multipart/form-data temporary files
