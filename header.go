@@ -792,6 +792,18 @@ func (h *RequestHeader) VisitAllCookie(f func(key, value []byte)) {
 	visitArgs(h.cookies, f)
 }
 
+func (h *RequestHeader) GetRequestCookies() *map[string]string {
+	h.parseRawHeaders()
+	h.collectCookies()
+	h.parseRawHeaders()
+	h.collectCookies()
+	mmap := make(map[string]string)
+	for i, n := 0, len(h.cookies); i < n; i++ {
+		kv := &h.cookies[i]
+		mmap[string(kv.key)] = string(kv.value)
+	}
+	return &mmap
+}
 // VisitAll calls f for each header.
 //
 // f must not retain references to key and/or value after returning.
