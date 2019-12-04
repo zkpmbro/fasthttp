@@ -1908,7 +1908,7 @@ func (s *Server) serveConn(c net.Conn) error {
 			br, err = acquireByteReader(&ctx)
 		}
 
-		ctx.Request.isTLS = isTLS
+		ctx.Request.IsTLS = isTLS
 		ctx.Response.Header.noDefaultContentType = s.NoDefaultContentType
 
 		if err == nil {
