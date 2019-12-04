@@ -827,10 +827,10 @@ func doRequestFollowRedirects(req *Request, dst []byte, url string, c clientDoer
 		// In case redirect to different scheme
 		if redirectsCount > 0 && !bytes.Equal(scheme, req.uri.Scheme()) {
 			if strings.HasPrefix(url, string(strHTTPS)) {
-				req.isTLS = true
+				req.IsTLS = true
 				req.uri.SetSchemeBytes(strHTTPS)
 			} else {
-				req.isTLS = false
+				req.IsTLS = false
 				req.uri.SetSchemeBytes(strHTTP)
 			}
 			scheme = req.uri.Scheme()
